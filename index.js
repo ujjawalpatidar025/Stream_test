@@ -52,6 +52,7 @@ app.get("/video/:stat", (req, res) => {
     fileStream.pipe(res);
   });
 });
-app.listen(8000, function () {
-  console.log("Listening on port 8000!");
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, function () {
+  console.log(`Listening on port ${PORT}!`);
 });
