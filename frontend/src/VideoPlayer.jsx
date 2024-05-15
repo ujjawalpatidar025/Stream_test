@@ -5,8 +5,6 @@ const VideoPlayer = ({ videoId }) => {
   const videoRef = useRef(null);
   const [VideoUrl, setVideoUrl] = useState("");
 
-  console.log(videoId);
-
   useEffect(() => {}, [videoId]);
 
   return (

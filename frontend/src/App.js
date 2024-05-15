@@ -3,7 +3,8 @@ import VideoPlayer from "./VideoPlayer";
 
 function App() {
   const [videoId, setVideoId] = useState("first");
-  const [key, setKey] = useState(0); // Key to force re-render
+  const [key, setKey] = useState(0);
+  const [index, setindex] = useState(0); // Key to force re-render
 
   function playVideo(e, id) {
     e.preventDefault();
@@ -16,7 +17,9 @@ function App() {
       <button
         className="bg-green-500 px-3 py-2 mx-2 "
         onClick={(e) => {
-          playVideo(e, "forward");
+          const i = (index + 1) % 4;
+          setindex(i);
+          playVideo(e, i);
         }}
       >
         play next video
@@ -24,7 +27,9 @@ function App() {
       <button
         className="bg-green-500 px-3 py-2 mx-2"
         onClick={(e) => {
-          playVideo(e, "backward");
+          const i = (index - 1 + 4) % 4;
+          setindex(i);
+          playVideo(e, i);
         }}
       >
         play previous video
