@@ -1,22 +1,30 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-
+const path = require("path");
+const multer = require("multer");
 const cors = require("cors");
+const videomap = require("./videoMap");
 app.use(cors());
-app.get("/", function (req, res) {
-  // res.sendFile(__dirname + "/index.html");
-  res.send("hyy from the server and runnig fine");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
-const videomap = [
-  "./uploads/ram.mp4",
-  "./uploads/ample.mp4",
-  "./uploads/test.mp4",
-  "./uploads/test2.mp4",
-];
+const upload = multer({ storage: storage });
+
+app.get("/", function (req, res) {
+  // res.sendFile(__dirname + "/index.html");
+  res.status(200).json({ message: "Server is running fine ", vdSize });
+});
 
 let index = 0;
+let vdSize = videomap.length;
 
 // app.get("/video/:stat", (req, res) => {
 //   if (req.params.stat == "forward") {
@@ -52,6 +60,28 @@ let index = 0;
 //     fileStream.pipe(res);
 //   });
 // });
+
+app.get("/video/upload", upload.single("video"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+  console.log(`Uploaded file: ${req.file.originalname}`);
+  const newVideoPath = `./uploads/${req.file.originalname}`;
+  videomap.push(newVideoPath);
+
+  // Save the updated array back to videoMap.js
+  const updatedVideoMapContent = `const videomap = ${JSON.stringify(
+    videomap,
+    null,
+    2
+  )};\n\nmodule.exports = videomap;\n`;
+  fs.writeFileSync(
+    path.join(__dirname, "videoMap.js"),
+    updatedVideoMapContent,
+    "utf8"
+  );
+
+  res.json({ file: req.file, message: "File Uploaded Successfully" });
+});
 
 app.get("/video/:stat", (req, res) => {
   const range = req.headers.range;

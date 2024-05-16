@@ -17,7 +17,7 @@ const VideoPlayer = ({ videoId }) => {
       >
         <source
           autoPlay
-          src={`http://localhost:8000/video/${videoId}`}
+          src={`https://stream-test-isdf.onrender.com/video/${videoId}`}
           type="video/mp4"
         />
       </video>
