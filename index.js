@@ -61,7 +61,7 @@ let vdSize = videomap.length;
 //   });
 // });
 
-app.get("/video/upload", upload.single("video"), (req, res) => {
+app.post("/video/upload", upload.single("video"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
   console.log(`Uploaded file: ${req.file.originalname}`);
