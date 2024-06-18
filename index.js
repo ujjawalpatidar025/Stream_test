@@ -24,7 +24,11 @@ app.get("/", function (req, res) {
 });
 
 app.post("/check",(req,res)=>{
- 
+   console.log(req.body);
+  if(!req.body)
+  {
+    return res.status(400).json({message:"NOT FOUND"});
+  }
   console.log("lat:",req.body.lat);
   console.log("long:",req.body.long);
   return res.status(200).json({message:"success check"});
