@@ -23,6 +23,13 @@ app.get("/", function (req, res) {
   res.status(200).json({ message: "Server is running fine ", vdSize });
 });
 
+app.post("/check",function(req,res){
+  const {lat,long} = req.body;
+  console.log("lat:",lat);
+  console.log("long:",long):
+  return res.status(200).json({message:"success check"});
+});
+
 let index = 0;
 let vdSize = videomap.length;
 
