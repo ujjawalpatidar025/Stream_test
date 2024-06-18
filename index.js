@@ -25,8 +25,8 @@ app.get("/", function (req, res) {
 
 app.post("/check",function(req,res){
  
-  console.log("lat:",req.body?.lat);
-  console.log("long:",req.body?.long);
+  console.log("lat:",req.body.lat);
+  console.log("long:",req.body.long);
   return res.status(200).json({message:"success check"});
 });
 
