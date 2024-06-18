@@ -23,7 +23,7 @@ app.get("/", function (req, res) {
   res.status(200).json({ message: "Server is running fine ", vdSize });
 });
 
-app.post("/check",function(req,res){
+app.post("/check",(req,res)=>{
  
   console.log("lat:",req.body.lat);
   console.log("long:",req.body.long);
