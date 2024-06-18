@@ -6,6 +6,7 @@ const multer = require("multer");
 const cors = require("cors");
 const videomap = require("./videoMap");
 app.use(cors());
+app.use(express.json());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,7 +25,7 @@ app.get("/", function (req, res) {
 });
 
 app.post("/check",(req,res)=>{
-   console.log(req.body);
+ 
   if(!req.body)
   {
     return res.status(400).json({message:"NOT FOUND"});
